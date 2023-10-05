@@ -91,7 +91,9 @@ class VirtualClassroomManager:
             elif action == "list_students":
                 VirtualClassroomManager.list_students(class_name)
             elif action == "list_assignments":
-                VirtualClassroomManager.list_assignments(class_name)
+                list_assignments(class_name)
+            elif action == "remove_classroom":  # Added command to remove a classroom
+                VirtualClassroomManager.remove_classroom(class_name)
             else:
                 print("Invalid command.")
 
@@ -128,6 +130,14 @@ class VirtualClassroomManager:
             print(f"Classroom {class_name} not found.")
 
     @staticmethod
+    def remove_classroom(class_name):
+        if class_name in VirtualClassroomManager.classrooms:
+            del VirtualClassroomManager.classrooms[class_name]
+            print(f"Classroom {class_name} has been removed.")
+        else:
+            print(f"Classroom {class_name} not found.")
+
+    @staticmethod
     def submit_assignment(class_name, student_id):
         if class_name in VirtualClassroomManager.classrooms and student_id in VirtualClassroomManager.students:
             classroom = VirtualClassroomManager.classrooms[class_name]
@@ -142,12 +152,12 @@ class VirtualClassroomManager:
         else:
             print(f"Classroom {class_name} not found.")
 
-    @staticmethod
-    def list_assignments(class_name):
-        if class_name in VirtualClassroomManager.classrooms:
-            VirtualClassroomManager.classrooms[class_name].list_assignments()
-        else:
-            print(f"Classroom {class_name} not found.")
+
+def list_assignments(class_name):
+    if class_name in VirtualClassroomManager.classrooms:
+        VirtualClassroomManager.classrooms[class_name].list_assignments()
+    else:
+        print(f"Classroom {class_name} not found.")
 
 
 if __name__ == "__main__":
